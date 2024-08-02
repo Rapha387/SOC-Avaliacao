@@ -53,8 +53,18 @@ public class ExameAction extends Action {
 		if(exameVo.getRowid() == null) {
 			return EDITAR;
 		}
-		
+	
 		business.editarExame(exameVo);
+		
+		return REDIRECT;
+	}
+	
+	public String excluir() {
+		if(exameVo.getRowid() == null) {
+			return REDIRECT;
+		}
+	
+		business.excluirExame(exameVo);
 		
 		return REDIRECT;
 	}

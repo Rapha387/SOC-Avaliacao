@@ -73,4 +73,17 @@ public class ExameBusiness {
 			throw new BusinessException("Nao foi possivel realizar a inclusao do registro");
 		}
 	}
+
+	public void excluirExame(ExameVo exameVo) {
+		
+		try {
+			if(exameVo.getRowid().isEmpty()) {
+				throw new IllegalArgumentException("Id nao pode ser em branco");
+			}
+			dao.deleteExame(Integer.parseInt(exameVo.getRowid()));
+		}catch(Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+		
+	}
 }

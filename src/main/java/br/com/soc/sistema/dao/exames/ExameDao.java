@@ -29,15 +29,26 @@ public class ExameDao extends Dao {
 	
 	public void updateExame(ExameVo exameVo){
 		StringBuilder query = new StringBuilder("update exame set nm_exame = ? ")
-										.append("where rowid = " + exameVo.getRowid());
+										.append("where rowid = ?");
 		try(
 			Connection con = getConexao();
 			PreparedStatement  ps = con.prepareStatement(query.toString())){
-			System.out.println("DEU CERTO");
 			ps.setString(1, exameVo.getNome());
+			ps.setString(2, exameVo.getRowid());
 			ps.executeUpdate();
 			
-			System.out.println("DEU CERTO");
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void deleteExame(Integer codigo) { 
+		StringBuilder query = new StringBuilder("delete from exame where rowid = ?");
+		
+		try (Connection con = getConexao();
+				PreparedStatement  ps = con.prepareStatement(query.toString())){
+			ps.setInt(1, codigo);
+			ps.executeUpdate();
 			
 		}catch (SQLException e) {
 			e.printStackTrace();

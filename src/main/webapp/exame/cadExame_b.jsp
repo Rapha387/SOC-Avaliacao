@@ -8,6 +8,18 @@
 		<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 	</head>
 	<body class="bg-secondary">	
+		    <header class="shadow-sm bg-light d-flex flex-wrap justify-content-center py-3 px-5 mb-4 border-bottom">
+		      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
+		        <span class="fs-4">Gerenciador</span>
+		      </a>
+		
+		      <ul class="nav nav-pills ">
+		        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Exames</a></li>
+		        <li class="nav-item"><a href="#" class="nav-link">Funcionários</a></li>
+		        <li class="nav-item"><a href="#" class="nav-link">Exames Realizados</a></li>
+		      </ul>
+		    </header>
+			
 		<div class="container">
 			<div class="row mt-5 mb-2">
 				<div class="col-sm p-0">
@@ -58,7 +70,7 @@
 										<s:text name="label.editar"/>
 									</a>
 
-									<a href="#" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
+									<a href="#" id="${rowid}" onclick="pegarIdBotao(this)" class="btn btn-danger btnExcluir" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
 										<s:text name="label.excluir"/>
 									</a>
 								</td>
@@ -69,8 +81,8 @@
 					<tfoot class="table-secondary">
 						<tr>
 							<td colspan="3">
-								<s:url action="novoExames" var="novo"/>
-								
+								<s:url action="novoExames" var="novo" />
+									
 								<a href="${novo}" class="btn btn-success">
 									<s:text name="label.novo"/>
 								</a>
@@ -105,14 +117,28 @@
 					<s:text name="label.nao"/>
 				</a>
 	        	
-				<s:a id="excluir" class="btn btn-primary" style="width: 75px;">
+	        	<s:url action="excluirExames" var="excluir">
+	        		<s:param name="exameVo.rowid" value="rowid"></s:param>
+				</s:url>
+	        	
+				<a href="${excluir}" id="excluir" class="btn btn-primary btnConfirmaExclusao" style="width: 75px;">
 					<s:text name="label.sim"/>
-				</s:a>						
+				</a>						
 		      </div>
 		    </div>		    
 		  </div>
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+		
+		<script>
+			const btnConfirmaExclusao = document.querySelector('.btnConfirmaExclusao');	
+			const href = btnConfirmaExclusao.getAttribute('href');
+		
+			function pegarIdBotao(e){
+				btnConfirmaExclusao.setAttribute('href', href + e.getAttribute('id'));
+			}
+		</script>
+		
 	</body>
 </html>
