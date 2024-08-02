@@ -8,17 +8,8 @@
 		<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 	</head>
 	<body class="bg-secondary">	
-		    <header class="shadow-sm bg-light d-flex flex-wrap justify-content-center py-3 px-5 mb-4 border-bottom">
-		      <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-body-emphasis text-decoration-none">
-		        <span class="fs-4">Gerenciador</span>
-		      </a>
-		
-		      <ul class="nav nav-pills ">
-		        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Exames</a></li>
-		        <li class="nav-item"><a href="#" class="nav-link">Funcionários</a></li>
-		        <li class="nav-item"><a href="#" class="nav-link">Exames Realizados</a></li>
-		      </ul>
-		    </header>
+	
+		<jsp:include page="/components/header.jsp"/>
 			
 		<div class="container">
 			<div class="row mt-5 mb-2">
@@ -38,7 +29,7 @@
 									listValueKey="%{descricao}"
 									value="filtrar.opcoesCombo.codigo"									
 								/>
-								
+
 								<s:textfield cssClass="form-control" id="nome" name="filtrar.valorBusca"/>
 								<button class="btn btn-primary" type="submit"><s:text name="label.pesquisar"/></button>
 						</div>

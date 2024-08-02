@@ -18,7 +18,7 @@
             <result name="editar">/exame/cadExame_e.jsp</result>
         	<result name="redirect" type="redirectAction">todosExames</result>
         </action>
-        <action name="*Funcionarios" class="" method="{1}">
+        <action name="*Funcionarios" class="br.com.soc.sistema.action.funcionario.FuncionarioAction" method="{1}">
         	<result name="success">/funcionario/cadFuncionario_b.jsp</result>
             <result name="input">/funcionario/cadFuncionario_i.jsp</result>
             <result name="editar">/funcionario/cadFuncionario_e.jsp</result>
