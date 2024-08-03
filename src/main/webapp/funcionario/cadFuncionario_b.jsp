@@ -8,6 +8,7 @@
 		<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 	</head>
 	<body class="bg-secondary">	
+	
 		<jsp:include page="/components/header.jsp"/>
 			
 		<div class="container">
@@ -37,13 +38,13 @@
 					</thead>
 					
 					<tbody>
-						<s:iterator value="exames" >
+						<s:iterator value="funcionarios" >
 							<tr>
 								<td>${rowid}</td>
 								<td>${nome}</td>
 								<td class="text-end">
-									<s:url action="editarExames" var="editar">
-										<s:param name="exameVo.rowid" value="rowid"></s:param>
+									<s:url action="editarFuncionarios" var="editar">
+										<s:param name="funcionarioVo.rowid" value="rowid"></s:param>
 									</s:url>
 
 									<a href="${editar}" class="btn btn-warning text-white">
@@ -61,7 +62,7 @@
 					<tfoot class="table-secondary">
 						<tr>
 							<td colspan="3">
-								<s:url action="novoExames" var="novo" />
+								<s:url action="novoFuncionarios" var="novo" />
 									
 								<a href="${novo}" class="btn btn-success">
 									<s:text name="label.novo"/>
@@ -97,8 +98,8 @@
 					<s:text name="label.nao"/>
 				</a>
 	        	
-	        	<s:url action="excluirExames" var="excluir">
-	        		<s:param name="exameVo.rowid" value="rowid"></s:param>
+	        	<s:url action="excluirFuncionarios" var="excluir">
+	        		<s:param name="funcionarioVo.rowid" value="rowid"></s:param>
 				</s:url>
 	        	
 				<a href="${excluir}" id="excluir" class="btn btn-primary btnConfirmaExclusao" style="width: 75px;">

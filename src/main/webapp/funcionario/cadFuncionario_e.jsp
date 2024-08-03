@@ -10,18 +10,16 @@
 	<body class="bg-secondary">
 
 		<div class="container">
-			<s:form action="/salvarEdicaoExames.action">
-
+			<s:form action="/salvarEdicaoFuncionarios.action">
 				<div class="card mt-5">
 					<div class="card-header">
 						<div class="row">
 							<div class="col-sm-5">
-								<s:url action="todosExames" var="todos"/>
-								<a href="${todos}" class="btn btn-success" >Exames</a>
-							</div>
-							
+								<s:url action="todosFuncionarios" var="todos"/>
+								<a href="${todos}" class="btn btn-success" >Funcionários</a>
+							</div>		
 							<div class="col-sm">
-								<h5 class="card-title">Editar Exame</h5>
+								<h5 class="card-title">Editar Funcionário</h5>
 							</div>
 						</div>
 					</div>
@@ -33,7 +31,7 @@
 							</label>	
 
 							<div class="col-sm-2">
-								<s:textfield cssClass="form-control" id="id" name="exameVo.rowid" readonly="true"/>							
+								<s:textfield cssClass="form-control" id="id" name="funcionarioVo.rowid" readonly="true"/>							
 							</div>	
 						</div>
 						
@@ -43,11 +41,10 @@
 							</label>	
 
 							<div class="col-sm-5">
-								<s:textfield cssClass="form-control" id="nome" name="exameVo.nome"/>							
-							</div>	
+								<s:textfield cssClass="form-control" id="nome" name="funcionarioVo.nome"/>							
+							</div>
 						</div>
 					</div>
-
 					<div class="card-footer">
 						<div class="form-row">
 							<button class="btn btn-primary col-sm-4 offset-sm-1">Salvar</button>
