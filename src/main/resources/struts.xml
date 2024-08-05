@@ -27,7 +27,6 @@
         <action name="*ExamesRealizados" class="br.com.soc.sistema.action.exameRealizado.ExameRealizadoAction" method="{1}">
         	<result name="success">/examesRealizados/cadExamesRealizados_b.jsp</result>
             <result name="input">/examesRealizados/cadExamesRealizados_i.jsp</result>
-            <result name="editar">/examesRealizados/cadExamesRealizados_e.jsp</result>
         	<result name="redirect" type="redirectAction">todosExamesRealizados</result>
         </action>
     </package>

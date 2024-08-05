@@ -1,6 +1,9 @@
 package br.com.soc.sistema.action.exameRealizado;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import br.com.soc.sistema.business.ExameRealizadoBusiness;
@@ -12,17 +15,14 @@ public class ExameRealizadoAction extends Action{
 	
 	private List<ExameRealizadoVo> examesRealizados = new ArrayList<>();
 	private ExameRealizadoVo exameRealizadoVo = new ExameRealizadoVo();
+	private ExameRealizadoVo exameRealizado = new ExameRealizadoVo();
+	
+	private String dataExame;
 	
 	public String todos() {
 		this.examesRealizados.addAll(business.trazerTodosOsExamesRealizados());
 		
 		return SUCCESS;
-	}
-
-	public String editar() {
-		
-		
-		return EDITAR;
 	}
 	
 	public String novo() {
@@ -36,6 +36,24 @@ public class ExameRealizadoAction extends Action{
 	}
 	
 	
+	public String excluir() {
+		business.excluirExameRealizado(exameRealizado);
+		
+		return REDIRECT;
+	}
+	
+	
+	
+	public String getDataExame() {
+		return dataExame;
+	}
+
+	public void setDataExame(String dataExame) throws ParseException {
+		this.dataExame = dataExame;
+		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+		exameRealizado.setDataExame(formatter.parse(this.dataExame)); 
+	}
+
 	public ExameRealizadoVo getExameRealizadoVo() {
 		return exameRealizadoVo;
 	}
@@ -50,5 +68,14 @@ public class ExameRealizadoAction extends Action{
 
 	public void setExamesRealizados(List<ExameRealizadoVo> examesRealizados) {
 		this.examesRealizados = examesRealizados;
+	}
+
+	public ExameRealizadoVo getExameRealizado() {
+		return exameRealizado;
+	}
+
+	public void setExameRealizado(ExameRealizadoVo exameRealizado) {
+		this.exameRealizado = exameRealizado;
 	}	
+	
 }

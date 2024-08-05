@@ -41,23 +41,20 @@
 					<tbody>
 						<s:iterator value="examesRealizados" >
 							<tr>
-								<td>${exameVo.nome}</td>
 								<td>${funcionarioVo.nome}</td>
+								<td>${exameVo.nome}</td>
 								<td><fmt:formatDate value="${dataExame}" type="date" pattern="dd/MM/yyyy"/></td>
 								<td class="text-end">
-									<s:url action="editarExamesRealizados" var="editar">
-										<s:param name="exameRealizado.exameVo.rowid" value="exameVo.rowid"></s:param>
-										<s:param name="exameRealizado.funcionarioVo.rowid" value="funcionarioVo.rowid"></s:param>
-										<s:param name="exameRealizado.dataExame">
+									<s:url action="excluirExamesRealizados" var="editar">
+										<s:param name="exameRealizado.exameVo.rowid" value="%{exameVo.rowid}"></s:param>
+										<s:param name="exameRealizado.funcionarioVo.rowid" value="%{funcionarioVo.rowid}"></s:param>
+										<s:param name="dataExame">
 											<fmt:formatDate value="${dataExame}" type="date" pattern="dd-MM-yyyy"/>
 										</s:param>
 									</s:url>
+									
 
-									<a href="${editar}" class="btn btn-warning text-white">
-										<s:text name="label.editar"/>
-									</a>
-
-									<a href="#" id="${exame.id}" onclick="pegarIdBotao(this)" class="btn btn-danger btnExcluir" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
+									<a href="#" id="${editar}" onclick="pegarIdBotao(this)" class="btn btn-danger btnExcluir" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
 										<s:text name="label.excluir"/>
 									</a>
 								</td>
@@ -123,7 +120,7 @@
 			const href = btnConfirmaExclusao.getAttribute('href');
 		
 			function pegarIdBotao(e){
-				btnConfirmaExclusao.setAttribute('href', href + e.getAttribute('id'));
+				btnConfirmaExclusao.setAttribute('href', e.getAttribute('id'));
 			}
 		</script>
 		

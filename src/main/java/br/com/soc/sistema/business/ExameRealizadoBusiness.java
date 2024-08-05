@@ -32,4 +32,17 @@ public class ExameRealizadoBusiness {
 		}
 		
 	}
+
+	public void excluirExameRealizado(ExameRealizadoVo exameRealizado) {
+		try {
+			SimpleDateFormat formatoAmericano = new SimpleDateFormat("yyyy-MM-dd");
+			Integer codigoExame = Integer.parseInt(exameRealizado.getExameVo().getRowid());
+			Integer codigoFuncionario = Integer.parseInt(exameRealizado.getFuncionarioVo().getRowid());
+			String dataExame = formatoAmericano.format(exameRealizado.getDataExame());
+			dao.deleteExameRealizado(codigoExame, codigoFuncionario, dataExame);
+		}catch(NumberFormatException e) {
+			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
+		}
+		
+	}
 }

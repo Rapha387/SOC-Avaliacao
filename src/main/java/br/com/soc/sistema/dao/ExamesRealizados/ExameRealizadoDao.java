@@ -33,8 +33,8 @@ public class ExameRealizadoDao extends Dao{
 		
 			while(rs.next()) {
 				ExameRealizadoVo exameRealizadoVo = new ExameRealizadoVo();
-				exameRealizadoVo.setExameVo(new ExameVo(rs.getString("rowid_funcionario"), rs.getString("nm_funcionario")));
-				exameRealizadoVo.setFuncionarioVo(new FuncionarioVo(rs.getString("rowid_exame"), rs.getString("nm_exame")));
+				exameRealizadoVo.setExameVo(new ExameVo(rs.getString("rowid_exame"), rs.getString("nm_exame")));
+				exameRealizadoVo.setFuncionarioVo(new FuncionarioVo(rs.getString("rowid_funcionario"), rs.getString("nm_funcionario")));
 				exameRealizadoVo.setDataExame(formatoBrasileiro.parse(rs.getString("dt_exame")));
 				
 				examesRealizados.add(exameRealizadoVo);
@@ -52,12 +52,30 @@ public class ExameRealizadoDao extends Dao{
 			Connection con = getConexao();
 			PreparedStatement  ps = con.prepareStatement(query.toString())){
 			
-			ps.setInt(1, codigoExame);
-			ps.setInt(2, codigoFuncionario);
+			ps.setInt(1, codigoFuncionario);
+			ps.setInt(2, codigoExame);
 			ps.setString(3, dataExame);
 			ps.executeUpdate();
 		}catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+
+	public void deleteExameRealizado(Integer codigoExame, Integer codigoFuncionario, String dataExame) {
+		StringBuilder query = new StringBuilder("delete from exame_funcionario where rowid_funcionario = ?")
+											.append(" and rowid_exame = ? and dt_exame = ?");
+		try(
+			Connection con = getConexao();
+			PreparedStatement  ps = con.prepareStatement(query.toString())){
+			
+			ps.setInt(1, codigoFuncionario);
+			ps.setInt(2, codigoExame);
+			ps.setString(3, dataExame);
+			ps.executeUpdate();
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
 	}
 }
