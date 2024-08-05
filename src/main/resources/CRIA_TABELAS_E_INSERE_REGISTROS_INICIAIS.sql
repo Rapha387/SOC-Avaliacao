@@ -16,3 +16,8 @@ create table exame_funcionario
 
 INSERT INTO exame (nm_exame) VALUES ('Acuidade Visual'), ('Urina'), ('Clinico'), ('Sangue');
 INSERT INTO funcionario (nm_funcionario) VALUES ('Giovanna'), ('Maria Luiza'), ('Raphael'), ('Gustavo');
+
+INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (1, 1, '2000-01-05');
+INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (1, 2, '2000-01-04');
+INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (2, 2, '2000-01-04');
+INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (1, 1, '2000-01-04');

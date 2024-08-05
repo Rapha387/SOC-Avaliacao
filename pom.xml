@@ -72,7 +72,7 @@
 					<target>1.8</target>
 				</configuration>
 			</plugin>
-
+	
 			<plugin>
             <groupId>org.eclipse.jetty</groupId>
             <artifactId>jetty-maven-plugin</artifactId>
@@ -87,6 +87,12 @@
                 <scanTargets>
                     <scanTarget>src/main/webapp/WEB-INF/web.xml</scanTarget>
                 </scanTargets>
+                <systemProperties>
+		            <systemProperty>
+		                <name>DEBUG</name>
+		                <value>true</value>
+		            </systemProperty>
+		        </systemProperties>
             </configuration>
         </plugin>
         <plugin>

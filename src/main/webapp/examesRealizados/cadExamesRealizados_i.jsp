@@ -3,45 +3,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
+	<meta charset="ISO-8859-1">
+	<title>Insert title here</title>
+	<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 </head>
 <body class="bg-secondary">
 		<div class="container">
-			<s:form action="/novoExames.action">
+			<s:form action="/novoExamesRealizados.action">
 
 				<div class="card mt-5">
 					<div class="card-header">
 						<div class="row">
 							<div class="col-sm-5">
-								<s:url action="todosExames" var="todos"/>
-								<a href="${todos}" class="btn btn-success" >Exames</a>
+								<s:url action="todosExamesRealizados" var="todos"/>
+								<a href="${todos}" class="btn btn-success" >Exames dos Funcionários</a>
 							</div>
 							
 							<div class="col-sm">
-								<h5 class="card-title">Novo Exame</h5>
+								<h5 class="card-title">Novo Exame do Funcionário</h5>
 							</div>
 						</div>
 					</div>
 					
 					<div class="card-body">
 						<div class="row align-items-center">
-							<label for="id" class="col-sm-1 col-form-label text-center">
-								Código:
+							<label for="id" class="col-sm-2 col-form-label">
+								Código Exame:
 							</label>	
 
 							<div class="col-sm-2">
-								<s:textfield cssClass="form-control" id="id" name="exameVo.rowid" readonly="true"/>							
+								<s:textfield type="number" cssClass="form-control" id="id" name="exameRealizadoVo.exameVo.rowid"/>							
 							</div>	
 						</div>
 						
 						<div class="row align-items-center mt-3">
-							<label for="nome" class="col-sm-1 col-form-label text-center">
-								Nome:
+							<label for="nome" class="col-sm-2 col-form-label">
+								Código Funcionário:
 							</label>	
 
-							<div class="col-sm-5">
-								<s:textfield cssClass="form-control" id="nome" name="exameVo.nome"/>							
+							<div class="col-sm-2">
+								<s:textfield type="number" cssClass="form-control" id="nome" name="exameRealizadoVo.funcionarioVo.rowid"/>							
+							</div>	
+						</div>
+						<div class="row align-items-center mt-3">
+							<label for="nome" class="col-sm-2 col-form-label">
+								Data do Exame:
+							</label>	
+
+							<div class="col-sm-2">
+								<s:textfield type="date" cssClass="form-control" id="nome" name="exameRealizadoVo.dataExame"/>							
 							</div>	
 						</div>
 					</div>

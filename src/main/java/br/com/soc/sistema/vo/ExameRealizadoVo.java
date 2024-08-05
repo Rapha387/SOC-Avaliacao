@@ -3,8 +3,8 @@ package br.com.soc.sistema.vo;
 import java.util.Date;
 
 public class ExameRealizadoVo {	
-	private ExameVo exameVo;
-	private FuncionarioVo funcionarioVo;
+	private ExameVo exameVo = new ExameVo();
+	private FuncionarioVo funcionarioVo = new FuncionarioVo();
 	private Date dataExame;
 	
 	public ExameVo getExameVo() {

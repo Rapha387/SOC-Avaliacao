@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,7 +14,7 @@
 		<div class="container">
 			<div class="row mt-5 mb-2">
 				<div class="col-sm p-0">
-					<s:form action="/filtrarExames.action">
+					<s:form action="/filtrarExamesRealizados.action">
 						<div class="input-group">
 							<span class="input-group-text">
 								<strong><s:text name="label.buscar.por"/></strong>
@@ -30,27 +31,33 @@
 				<table class="table table-light table-striped align-middle">
 					<thead>
 						<tr>
-							<th><s:text name="label.id"/></th>
-							<th><s:text name="label.nome"/></th>
+							<th>FUNCIONÁRIO</th>
+							<th>EXAME</th>
+							<th>DATA EXAME</th>
 							<th class="text-end mt-5"><s:text name="label.acao"/></th>
 						</tr>
 					</thead>
 					
 					<tbody>
-						<s:iterator value="exames" >
+						<s:iterator value="examesRealizados" >
 							<tr>
-								<td>${rowid}</td>
-								<td>${nome}</td>
+								<td>${exameVo.nome}</td>
+								<td>${funcionarioVo.nome}</td>
+								<td><fmt:formatDate value="${dataExame}" type="date" pattern="dd/MM/yyyy"/></td>
 								<td class="text-end">
-									<s:url action="editarExames" var="editar">
-										<s:param name="exameVo.rowid" value="rowid"></s:param>
+									<s:url action="editarExamesRealizados" var="editar">
+										<s:param name="exameRealizado.exameVo.rowid" value="exameVo.rowid"></s:param>
+										<s:param name="exameRealizado.funcionarioVo.rowid" value="funcionarioVo.rowid"></s:param>
+										<s:param name="exameRealizado.dataExame">
+											<fmt:formatDate value="${dataExame}" type="date" pattern="dd-MM-yyyy"/>
+										</s:param>
 									</s:url>
 
 									<a href="${editar}" class="btn btn-warning text-white">
 										<s:text name="label.editar"/>
 									</a>
 
-									<a href="#" id="${rowid}" onclick="pegarIdBotao(this)" class="btn btn-danger btnExcluir" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
+									<a href="#" id="${exame.id}" onclick="pegarIdBotao(this)" class="btn btn-danger btnExcluir" data-bs-toggle="modal" data-bs-target="#confirmarExclusao">
 										<s:text name="label.excluir"/>
 									</a>
 								</td>
@@ -60,11 +67,11 @@
 					
 					<tfoot class="table-secondary">
 						<tr>
-							<td colspan="3">
-								<s:url action="novoExames" var="novo" />
+							<td colspan="4">
+								<s:url action="novoExamesRealizados" var="novo" />
 									
 								<a href="${novo}" class="btn btn-success">
-									<s:text name="label.novo"/>
+									MARCAR <s:text name="label.novo"/> EXAME
 								</a>
 							</td>
 						</tr>
@@ -97,7 +104,7 @@
 					<s:text name="label.nao"/>
 				</a>
 	        	
-	        	<s:url action="excluirExames" var="excluir">
+	        	<s:url action="excluirExamesRealizados" var="excluir">
 	        		<s:param name="exameVo.rowid" value="rowid"></s:param>
 				</s:url>
 	        	

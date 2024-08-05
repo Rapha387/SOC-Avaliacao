@@ -1,0 +1,35 @@
+package br.com.soc.sistema.business;
+
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import br.com.soc.sistema.dao.ExamesRealizados.ExameRealizadoDao;
+import br.com.soc.sistema.exception.BusinessException;
+import br.com.soc.sistema.vo.ExameRealizadoVo;
+
+public class ExameRealizadoBusiness {
+	private ExameRealizadoDao dao;
+	private static final String FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO = "Foi informado um caracter no lugar de um numero";
+
+	public ExameRealizadoBusiness() {
+		this.dao = new ExameRealizadoDao();
+	}
+	
+	public List<ExameRealizadoVo> trazerTodosOsExamesRealizados() {
+		return dao.findAll();
+	}
+
+	public void salvarExameRealizado(ExameRealizadoVo exameRealizadoVo) {
+		try {
+			SimpleDateFormat formatoAmericano = new SimpleDateFormat("yyyy-MM-dd");
+			Integer codigoExame = Integer.parseInt(exameRealizadoVo.getExameVo().getRowid());
+			Integer codigoFuncionario = Integer.parseInt(exameRealizadoVo.getFuncionarioVo().getRowid());
+			String dataExame = formatoAmericano.format(exameRealizadoVo.getDataExame());
+			
+			dao.insertExameRealizado(codigoExame, codigoFuncionario, dataExame);
+		}catch(NumberFormatException e) {
+			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
+		}
+		
+	}
+}
