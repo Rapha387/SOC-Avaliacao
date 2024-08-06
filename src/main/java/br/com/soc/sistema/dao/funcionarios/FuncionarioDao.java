@@ -8,10 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import br.com.soc.sistema.dao.Dao;
+import br.com.soc.sistema.dao.ExamesRealizados.ExameRealizadoDao;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioDao extends Dao{
 
+	private ExameRealizadoDao exameRealizadoDao = new ExameRealizadoDao();
+	
 	public List<FuncionarioVo> findAllFuncionarios() {
 		List<FuncionarioVo> funcionarios = new ArrayList<>();
 		StringBuilder querry = new StringBuilder("Select rowid, nm_funcionario from funcionario"); 
@@ -70,6 +73,8 @@ public class FuncionarioDao extends Dao{
 	}
 
 	public void deleteFuncionario(Integer codigo) {
+		exameRealizadoDao.deleteAllByIdFuncionario(codigo);
+		
 		StringBuilder query = new StringBuilder("delete from funcionario where rowid = ?");
 		
 		try (Connection con = getConexao();

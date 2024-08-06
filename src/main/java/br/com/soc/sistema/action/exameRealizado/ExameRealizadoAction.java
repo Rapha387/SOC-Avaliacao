@@ -3,21 +3,31 @@ package br.com.soc.sistema.action.exameRealizado;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
+import br.com.soc.sistema.api.BaixarRelatorioExcel;
 import br.com.soc.sistema.business.ExameRealizadoBusiness;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.vo.ExameRealizadoVo;
 
 public class ExameRealizadoAction extends Action{
 	private ExameRealizadoBusiness business = new ExameRealizadoBusiness();
+	private BaixarRelatorioExcel baixarRelatorioExcel = new BaixarRelatorioExcel();
 	
 	private List<ExameRealizadoVo> examesRealizados = new ArrayList<>();
 	private ExameRealizadoVo exameRealizadoVo = new ExameRealizadoVo();
-	private ExameRealizadoVo exameRealizado = new ExameRealizadoVo();
 	
 	private String dataExame;
+	
+	private String valorBuscaDataInicio;
+	private String valorBuscaDataFim;
+	
+	
+	public String filtrar() {
+		this.examesRealizados = business.filtrarExamesRealizadosPorDatas(valorBuscaDataInicio, valorBuscaDataFim);
+		
+		return SUCCESS;
+	}
 	
 	public String todos() {
 		this.examesRealizados.addAll(business.trazerTodosOsExamesRealizados());
@@ -37,11 +47,17 @@ public class ExameRealizadoAction extends Action{
 	
 	
 	public String excluir() {
-		business.excluirExameRealizado(exameRealizado);
+		business.excluirExameRealizado(exameRealizadoVo);
 		
 		return REDIRECT;
 	}
 	
+	
+	public String baixarRelatorio() {
+		baixarRelatorioExcel.baixar();
+		
+		return REDIRECT;
+	}
 	
 	
 	public String getDataExame() {
@@ -51,7 +67,7 @@ public class ExameRealizadoAction extends Action{
 	public void setDataExame(String dataExame) throws ParseException {
 		this.dataExame = dataExame;
 		SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
-		exameRealizado.setDataExame(formatter.parse(this.dataExame)); 
+		exameRealizadoVo.setDataExame(formatter.parse(this.dataExame)); 
 	}
 
 	public ExameRealizadoVo getExameRealizadoVo() {
@@ -71,11 +87,27 @@ public class ExameRealizadoAction extends Action{
 	}
 
 	public ExameRealizadoVo getExameRealizado() {
-		return exameRealizado;
+		return exameRealizadoVo;
 	}
 
 	public void setExameRealizado(ExameRealizadoVo exameRealizado) {
-		this.exameRealizado = exameRealizado;
+		this.exameRealizadoVo = exameRealizado;
+	}
+
+	public String getValorBuscaDataInicio() {
+		return valorBuscaDataInicio;
+	}
+
+	public void setValorBuscaDataInicio(String valorBuscaDataInicio) {
+		this.valorBuscaDataInicio = valorBuscaDataInicio;
+	}
+
+	public String getValorBuscaDataFim() {
+		return valorBuscaDataFim;
+	}
+
+	public void setValorBuscaDataFim(String valorBuscaDataFim) {
+		this.valorBuscaDataFim = valorBuscaDataFim;
 	}	
 	
 }

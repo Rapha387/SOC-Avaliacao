@@ -17,10 +17,21 @@
 					<s:form action="/filtrarExamesRealizados.action">
 						<div class="input-group">
 							<span class="input-group-text">
-								<strong><s:text name="label.buscar.por"/></strong>
+								<strong><s:text name="label.buscar.por"/> DATA</strong>
+							</span>	
+							
+							<span class="input-group-text">
+								<strong>DE:</strong>
 							</span>	
 
-							<s:textfield cssClass="form-control" id="nome" name="filtrar.valorBusca"/>
+							<s:textfield type="date" cssClass="form-control" id="nome" name="valorBuscaDataInicio"/>
+							
+							<span class="input-group-text">
+								<strong>ATÉ:</strong>
+							</span>	
+							
+							<s:textfield type="date"  cssClass="form-control" id="nome" name="valorBuscaDataFim"/>
+							
 							<button class="btn btn-primary" type="submit"><s:text name="label.pesquisar"/></button>
 						</div>
 					</s:form>			
@@ -46,8 +57,8 @@
 								<td><fmt:formatDate value="${dataExame}" type="date" pattern="dd/MM/yyyy"/></td>
 								<td class="text-end">
 									<s:url action="excluirExamesRealizados" var="editar">
-										<s:param name="exameRealizado.exameVo.rowid" value="%{exameVo.rowid}"></s:param>
-										<s:param name="exameRealizado.funcionarioVo.rowid" value="%{funcionarioVo.rowid}"></s:param>
+										<s:param name="exameRealizadoVo.exameVo.rowid" value="%{exameVo.rowid}"></s:param>
+										<s:param name="exameRealizadoVo.funcionarioVo.rowid" value="%{funcionarioVo.rowid}"></s:param>
 										<s:param name="dataExame">
 											<fmt:formatDate value="${dataExame}" type="date" pattern="dd-MM-yyyy"/>
 										</s:param>
@@ -69,6 +80,12 @@
 									
 								<a href="${novo}" class="btn btn-success">
 									MARCAR <s:text name="label.novo"/> EXAME
+								</a>
+								
+								<s:url action="baixarRelatorioExamesRealizados" var="baixarRelatorio" />
+								
+								<a href="${baixarRelatorio}" class="btn btn-success">
+									BAIXAR RELATÓRIO
 								</a>
 							</td>
 						</tr>

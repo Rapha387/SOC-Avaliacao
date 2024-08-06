@@ -1,6 +1,7 @@
 package br.com.soc.sistema.business;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import br.com.soc.sistema.dao.ExamesRealizados.ExameRealizadoDao;
@@ -21,16 +22,15 @@ public class ExameRealizadoBusiness {
 
 	public void salvarExameRealizado(ExameRealizadoVo exameRealizadoVo) {
 		try {
-			SimpleDateFormat formatoAmericano = new SimpleDateFormat("yyyy-MM-dd");
 			Integer codigoExame = Integer.parseInt(exameRealizadoVo.getExameVo().getRowid());
 			Integer codigoFuncionario = Integer.parseInt(exameRealizadoVo.getFuncionarioVo().getRowid());
+			SimpleDateFormat formatoAmericano = new SimpleDateFormat("yyyy-MM-dd");
 			String dataExame = formatoAmericano.format(exameRealizadoVo.getDataExame());
 			
 			dao.insertExameRealizado(codigoExame, codigoFuncionario, dataExame);
 		}catch(NumberFormatException e) {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
-		}
-		
+		}	
 	}
 
 	public void excluirExameRealizado(ExameRealizadoVo exameRealizado) {
@@ -44,5 +44,13 @@ public class ExameRealizadoBusiness {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 		}
 		
+	}
+
+	public List<ExameRealizadoVo> filtrarExamesRealizadosPorDatas(String valorBuscaDataInicio, String valorBuscaDataFim) {
+		try {
+			return dao.findByDates(valorBuscaDataInicio, valorBuscaDataFim);
+		}catch(Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 }
