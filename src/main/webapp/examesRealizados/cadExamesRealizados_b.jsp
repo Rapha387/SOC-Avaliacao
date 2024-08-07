@@ -50,7 +50,7 @@
 					</thead>
 					
 					<tbody>
-						<s:iterator value="examesRealizados" >
+						<s:iterator value="examesRealizados">
 							<tr>
 								<td>${funcionarioVo.nome}</td>
 								<td>${exameVo.nome}</td>
@@ -82,8 +82,12 @@
 									MARCAR <s:text name="label.novo"/> EXAME
 								</a>
 								
-								<s:url action="baixarRelatorioExamesRealizados" var="baixarRelatorio" />
+								<s:url action="baixarRelatorioExamesRealizados" var="baixarRelatorio" >
+									<s:param value="valorBuscaDataInicio" name="valorBuscaDataInicio"></s:param>
+									<s:param value="valorBuscaDataFim" name="valorBuscaDataFim"></s:param>
+								</s:url>
 								
+
 								<a href="${baixarRelatorio}" class="btn btn-success">
 									BAIXAR RELATÓRIO
 								</a>

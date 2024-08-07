@@ -52,11 +52,13 @@ public class ExameRealizadoAction extends Action{
 		return REDIRECT;
 	}
 	
+
+	public String baixarRelatorio(){
+		this.examesRealizados = business.filtrarExamesRealizadosPorDatas(valorBuscaDataInicio, valorBuscaDataFim);
 	
-	public String baixarRelatorio() {
-		baixarRelatorioExcel.baixar();
+		baixarRelatorioExcel.baixar(examesRealizados);			
 		
-		return REDIRECT;
+		return SUCCESS;
 	}
 	
 	

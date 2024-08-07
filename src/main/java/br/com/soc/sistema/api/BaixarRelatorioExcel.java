@@ -4,53 +4,54 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 
+import br.com.soc.sistema.vo.ExameRealizadoVo;
+
 public class BaixarRelatorioExcel {
 
-	public void baixar()  {
+	public void baixar(List<ExameRealizadoVo> examesRealizados)  {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 
-        // Criar uma planilha
-		HSSFSheet sheet = workbook.createSheet("MinhaPlanilha");
+		HSSFSheet sheet = workbook.createSheet("relatorioExamesRealizados");
 
-        // Criar uma linha
-        Row row = sheet.createRow(0);
+		int rownum = 0;
+		for(ExameRealizadoVo exame : examesRealizados) {
+			Row row = sheet.createRow(rownum++);
+			int cellnum = 0;
+			
+			Cell cellIdFuncionario = row.createCell(cellnum++);
+			cellIdFuncionario.setCellValue(exame.getFuncionarioVo().getRowid());
+		    Cell cellNomeFuncionario = row.createCell(cellnum++);
+		    cellNomeFuncionario.setCellValue(exame.getFuncionarioVo().getNome());
 
-        // Criar células na linha
-        Cell cell1 = row.createCell(0);
-        cell1.setCellValue("Nome");
-
-        Cell cell2 = row.createCell(1);
-        cell2.setCellValue("Idade");
-
-        // Adicionar mais linhas e células
-        Row row1 = sheet.createRow(1);
-        row1.createCell(0).setCellValue("João");
-        row1.createCell(1).setCellValue(25);
-
-        Row row2 = sheet.createRow(2);
-        row2.createCell(0).setCellValue("Maria");
-        row2.createCell(1).setCellValue(30);
-
-        // Ajustar o tamanho das colunas
-        sheet.autoSizeColumn(0);
-        sheet.autoSizeColumn(1);
-
-        // Escrever o workbook em um arquivo
+		    Cell cellIdExame = row.createCell(cellnum++);
+		    cellIdExame.setCellValue(exame.getExameVo().getRowid());
+		    Cell cellNomeExame = row.createCell(cellnum++);
+		    cellNomeExame.setCellValue(exame.getExameVo().getNome());
+	
+		    Cell cellDataExame = row.createCell(cellnum++);
+		    cellDataExame.setCellValue(new SimpleDateFormat("dd/MM/yyyy").format(exame.getDataExame()));
+		}
+	
+		for (int i = 0; i < examesRealizados.size(); i++) {
+            sheet.autoSizeColumn(i);
+        }
+		
         try (FileOutputStream fileOut = new FileOutputStream(new File("C:/teste/novo.xls"))) {
             workbook.write(fileOut);
         }catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
-         e.printStackTrace();
+        	e.printStackTrace();
         }
 
-        // Fechar o workbook
         try {
             workbook.close();
         } catch (IOException e) {
