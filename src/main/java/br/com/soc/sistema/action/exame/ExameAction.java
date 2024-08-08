@@ -42,9 +42,13 @@ public class ExameAction extends Action {
 	
 	public String editar() {
 		if(exameVo.getRowid() == null)
-			return REDIRECT;
+			return ERROR;
 		
-		exameVo = business.buscarExamePor(exameVo.getRowid());
+		try {
+			exameVo = business.buscarExamePor(exameVo.getRowid());			
+		}catch(Exception e) {
+			return ERROR;
+		}
 		
 		return EDITAR;
 	}
@@ -61,10 +65,14 @@ public class ExameAction extends Action {
 	
 	public String excluir() {
 		if(exameVo.getRowid() == null) {
-			return REDIRECT;
+			return ERROR;
 		}
 	
-		business.excluirExame(exameVo);
+		try {
+			business.excluirExame(exameVo);
+		}catch(Exception e) {
+			return ERROR;
+		}
 		
 		return REDIRECT;
 	}

@@ -31,9 +31,13 @@ public class FuncionarioAction extends Action{
 	
 	public String editar() {
 		if(funcionarioVo.getRowid() == null)
-			return REDIRECT;
+			return ERROR;
 		
-		funcionarioVo = business.buscarFuncionarioPorId(funcionarioVo.getRowid());
+		try {
+			funcionarioVo = business.buscarFuncionarioPorId(funcionarioVo.getRowid());			
+		}catch(Exception e) {
+			return ERROR;
+		}
 		
 		return EDITAR;
 	}
@@ -49,12 +53,14 @@ public class FuncionarioAction extends Action{
 			return REDIRECT;
 		}
 		
-		business.excluirFuncionario(funcionarioVo.getRowid());
+		try {
+			business.excluirFuncionario(funcionarioVo.getRowid());
+		}catch(Exception e) {
+			return ERROR;
+		}
 		
 		return REDIRECT;
 	}
-
-	
 
 	public FuncionarioVo getFuncionarioVo() {
 		return funcionarioVo;

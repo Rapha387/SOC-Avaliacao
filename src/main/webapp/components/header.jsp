@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
  <header class="shadow-sm bg-light d-flex flex-wrap justify-content-center py-3 px-5 mb-4 border-bottom">
@@ -12,7 +12,7 @@
 		
 	<ul class="nav nav-pills ">
 		<li class="nav-item"><a href="${exames}" class="nav-link">Exames</a></li>
-		<li class="nav-item"><a href="${funcionarios}" class="nav-link">Funcion√°rios</a></li>
+		<li class="nav-item"><a href="${funcionarios}" class="nav-link">Funcion·rios</a></li>
     	<li class="nav-item"><a href="${examesRealizados}" class="nav-link">Exames Realizados</a></li>
 	</ul>
 </header>
