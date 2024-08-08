@@ -9,7 +9,7 @@
 </head>
 <body class="bg-secondary">
 		<div class="container">
-			<s:form action="/novoExamesRealizados.action">
+			<s:form action="/novoExamesRealizados.action" onsubmit="return verificarInputsExameRealizado()">
 
 				<div class="card mt-5">
 					<div class="card-header">
@@ -32,8 +32,10 @@
 							</label>	
 
 							<div class="col-sm-2">
-								<s:textfield type="number" cssClass="form-control" id="id" name="exameRealizadoVo.exameVo.rowid"/>							
+								<s:textfield type="number" cssClass="form-control" id="txtIdExame" name="exameRealizadoVo.exameVo.rowid"/>							
 							</div>	
+							
+							<span id="erroIdExame" class="col-sm-5 text-danger"></span>	
 						</div>
 						
 						<div class="row align-items-center mt-3">
@@ -42,8 +44,10 @@
 							</label>	
 
 							<div class="col-sm-2">
-								<s:textfield type="number" cssClass="form-control" id="nome" name="exameRealizadoVo.funcionarioVo.rowid"/>							
+								<s:textfield type="number" cssClass="form-control" id="txtIdFuncionario" name="exameRealizadoVo.funcionarioVo.rowid"/>							
 							</div>	
+							
+							<span id="erroIdFuncionario" class="col-sm-5 text-danger"></span>	
 						</div>
 						<div class="row align-items-center mt-3">
 							<label for="nome" class="col-sm-2 col-form-label">
@@ -51,8 +55,10 @@
 							</label>	
 
 							<div class="col-sm-2">
-								<s:textfield type="date" cssClass="form-control" id="nome" name="exameRealizadoVo.dataExame"/>							
+								<s:textfield type="date" cssClass="form-control" id="txtData" name="exameRealizadoVo.dataExame"/>							
 							</div>	
+							
+							<span id="erroData" class="col-sm-5 text-danger"></span>	
 						</div>
 					</div>
 
@@ -67,5 +73,6 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src="js/verificarInputs/exameRealizado.js"></script>
 	</body>
 </html>

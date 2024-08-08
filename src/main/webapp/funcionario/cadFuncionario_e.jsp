@@ -10,7 +10,7 @@
 	<body class="bg-secondary">
 
 		<div class="container">
-			<s:form action="/salvarEdicaoFuncionarios.action">
+			<s:form action="/salvarEdicaoFuncionarios.action" onsubmit="return verificarInputsFuncionario()">
 				<div class="card mt-5">
 					<div class="card-header">
 						<div class="row">
@@ -41,8 +41,10 @@
 							</label>	
 
 							<div class="col-sm-5">
-								<s:textfield cssClass="form-control" id="nome" name="funcionarioVo.nome"/>							
+								<s:textfield cssClass="form-control" id="txtNome" name="funcionarioVo.nome"/>							
 							</div>
+							
+							<span id="erroNome" class="col-sm-5 text-danger"></span>	
 						</div>
 					</div>
 					<div class="card-footer">
@@ -56,5 +58,6 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src="js/verificarInputs/funcionario.js"></script>
 	</body>
 </html>

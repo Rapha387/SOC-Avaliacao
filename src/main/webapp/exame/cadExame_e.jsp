@@ -10,7 +10,7 @@
 	<body class="bg-secondary">
 
 		<div class="container">
-			<s:form action="/salvarEdicaoExames.action">
+			<s:form action="/salvarEdicaoExames.action" onsubmit="return verificarInputsExame()">
 
 				<div class="card mt-5">
 					<div class="card-header">
@@ -43,8 +43,9 @@
 							</label>	
 
 							<div class="col-sm-5">
-								<s:textfield cssClass="form-control" id="nome" name="exameVo.nome"/>							
+								<s:textfield cssClass="form-control" id="txtNome" name="exameVo.nome"/>							
 							</div>	
+							<span id="erroNome" class="col-sm-5 text-danger"></span>	
 						</div>
 					</div>
 
@@ -59,5 +60,6 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
+		<script type="text/javascript" src="js/verificarInputs/exame.js"></script>
 	</body>
 </html>
