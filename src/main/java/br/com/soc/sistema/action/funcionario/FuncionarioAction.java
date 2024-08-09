@@ -1,10 +1,13 @@
 package br.com.soc.sistema.action.funcionario;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import br.com.soc.sistema.business.FuncionarioBusinnes;
+import br.com.soc.sistema.filter.FuncionarioFilter;
 import br.com.soc.sistema.infra.Action;
+import br.com.soc.sistema.infra.OpcoesComboBuscarFuncionarios;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioAction extends Action{
@@ -13,6 +16,7 @@ public class FuncionarioAction extends Action{
 	
 	private List<FuncionarioVo> funcionarios = new ArrayList<>();
 	private FuncionarioVo funcionarioVo = new FuncionarioVo();
+	private FuncionarioFilter filtrar = new FuncionarioFilter();
 	
 	public String novo() {
 		if(funcionarioVo.getNome() == null)
@@ -25,6 +29,20 @@ public class FuncionarioAction extends Action{
 	
 	public String todos() {
 		funcionarios.addAll(business.TrazerTodosOsFuncionarios());
+		
+		return SUCCESS;
+	}
+	
+	public String filtrar() throws Exception {
+		if(filtrar.isNullOpcoesCombo() || filtrar.getValorBusca().isEmpty()) {
+			return REDIRECT;
+		}
+		
+		try {
+			funcionarios = business.filtrarFuncionarios(filtrar);
+		}catch(Exception e) {
+			return REDIRECT;
+		}
 		
 		return SUCCESS;
 	}
@@ -60,6 +78,18 @@ public class FuncionarioAction extends Action{
 		}
 		
 		return REDIRECT;
+	}
+	
+	public List<OpcoesComboBuscarFuncionarios> getListaOpcoesCombo(){
+		return Arrays.asList(OpcoesComboBuscarFuncionarios.values());
+	}
+
+	public FuncionarioFilter getFiltrar() {
+		return filtrar;
+	}
+
+	public void setFiltrar(FuncionarioFilter filtrar) {
+		this.filtrar = filtrar;
 	}
 
 	public FuncionarioVo getFuncionarioVo() {

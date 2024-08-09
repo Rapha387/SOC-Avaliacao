@@ -5,10 +5,12 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 import br.com.soc.sistema.dao.Dao;
 import br.com.soc.sistema.dao.ExamesRealizados.ExameRealizadoDao;
+import br.com.soc.sistema.vo.ExameVo;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioDao extends Dao{
@@ -97,5 +99,51 @@ public class FuncionarioDao extends Dao{
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public FuncionarioVo findByCodigo(Integer codigo) {
+		StringBuilder query = new StringBuilder("select rowid, nm_funcionario nome from funcionario ")
+				.append("WHERE rowid = ?");
+		
+		FuncionarioVo funcionario = new FuncionarioVo();
+		try(Connection con = getConexao();
+				PreparedStatement ps = con.prepareStatement(query.toString())){
+			
+			ps.setInt(1, codigo);
+			
+			try(ResultSet rs = ps.executeQuery()){
+				if (rs.next()) {
+					funcionario.setRowid(rs.getString("rowid"));
+					funcionario.setNome(rs.getString("nome"));	
+				}
+			}
+		}catch (SQLException e) {
+			e.printStackTrace();
+		}		
+		return funcionario;
+	}
+
+	public List<FuncionarioVo> findAllByNome(String valorBusca) throws SQLException {
+		StringBuilder query = new StringBuilder("select rowid, nm_funcionario nome from funcionario ")
+				.append("WHERE lower(nm_funcionario) like lower(?)");
+		
+		List<FuncionarioVo> funcionarios = new ArrayList<>();
+		try(Connection con = getConexao();
+				PreparedStatement ps = con.prepareStatement(query.toString())){
+			
+			ps.setString(1, "%"+valorBusca+"%");
+			
+			try(ResultSet rs = ps.executeQuery()){
+				while (rs.next()) {
+					FuncionarioVo funcionario = new FuncionarioVo();
+					funcionario.setRowid(rs.getString("rowid"));
+					funcionario.setNome(rs.getString("nome"));	
+					funcionarios.add(funcionario);
+				}
+			}
+		}catch (SQLException e) {
+			throw new SQLException(e.getMessage());
+		}		
+		return funcionarios;
 	}
 }

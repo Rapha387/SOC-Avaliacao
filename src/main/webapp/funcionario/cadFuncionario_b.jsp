@@ -14,14 +14,23 @@
 		<div class="container">
 			<div class="row mt-5 mb-2">
 				<div class="col-sm p-0">
-					<s:form action="/filtrarExames.action">
+					<s:form action="/filtrarFuncionarios.action">
 						<div class="input-group">
 							<span class="input-group-text">
 								<strong><s:text name="label.buscar.por"/></strong>
 							</span>	
-								
-								<s:textfield cssClass="form-control" id="nome" name="filtrar.valorBusca"/>
-								<button class="btn btn-primary" type="submit"><s:text name="label.pesquisar"/></button>
+							<s:select  
+								cssClass="form-select" 
+								name="filtrar.opcoesCombo" 
+								list="listaOpcoesCombo"  
+								headerKey=""  
+								headerValue="Escolha..." 
+								listKey="%{codigo}" 
+								listValueKey="%{descricao}"
+								value="filtrar.opcoesCombo.codigo"									
+							/>	
+							<s:textfield cssClass="form-control" id="nome" name="filtrar.valorBusca"/>
+							<button class="btn btn-primary" type="submit"><s:text name="label.pesquisar"/></button>
 						</div>
 					</s:form>			
 				</div>				

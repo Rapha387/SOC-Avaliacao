@@ -28,6 +28,7 @@ public class ExameAction extends Action {
 		
 		exames = business.filtrarExames(filtrar);
 		
+		
 		return SUCCESS;
 	}
 	

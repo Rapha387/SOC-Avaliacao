@@ -1,9 +1,11 @@
 package br.com.soc.sistema.business;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.soc.sistema.dao.funcionarios.FuncionarioDao;
 import br.com.soc.sistema.exception.BusinessException;
+import br.com.soc.sistema.filter.FuncionarioFilter;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioBusinnes {
@@ -61,5 +63,28 @@ public class FuncionarioBusinnes {
 			throw new BusinessException("Não foi possivel realizar a inclusão do registro");
 		}
 		
+	}
+
+	public List<FuncionarioVo> filtrarFuncionarios(FuncionarioFilter filtro) throws Exception {
+		List<FuncionarioVo> funcionarios = new ArrayList<>();
+		
+		switch (filtro.getOpcoesCombo()) {
+			case ID:
+				try {
+					Integer codigo = Integer.parseInt(filtro.getValorBusca());
+					funcionarios.add(dao.findByCodigo(codigo));
+				}catch (NumberFormatException e) {
+					throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
+				}catch(Exception e){
+					throw new Exception(e.getMessage()); 
+				}
+			break;
+
+			case NOME:
+				funcionarios.addAll(dao.findAllByNome(filtro.getValorBusca()));
+			break;
+		}
+		
+		return funcionarios;
 	}
 }
