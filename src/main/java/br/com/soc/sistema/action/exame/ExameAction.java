@@ -17,8 +17,12 @@ public class ExameAction extends Action {
 	private ExameVo exameVo = new ExameVo();
 	
 	public String todos() {
-		exames.addAll(business.trazerTodosOsExames());	
-
+		try {
+			exames.addAll(business.trazerTodosOsExames());	
+		}catch(Exception e) {
+			return ERROR;
+		}
+	
 		return SUCCESS;
 	}
 	
@@ -26,8 +30,11 @@ public class ExameAction extends Action {
 		if(filtrar.isNullOpcoesCombo())
 			return REDIRECT;
 		
-		exames = business.filtrarExames(filtrar);
-		
+		try {
+			exames = business.filtrarExames(filtrar);
+		}catch(Exception e) {
+			return REDIRECT;
+		}
 		
 		return SUCCESS;
 	}
@@ -35,8 +42,12 @@ public class ExameAction extends Action {
 	public String novo() {
 		if(exameVo.getNome() == null)
 			return INPUT;
+		try {
+			business.salvarExame(exameVo);
+		}catch(Exception e) {
+			return INPUT;
+		}
 		
-		business.salvarExame(exameVo);
 		
 		return REDIRECT;
 	}
@@ -59,7 +70,11 @@ public class ExameAction extends Action {
 			return EDITAR;
 		}
 	
-		business.editarExame(exameVo);
+		try {
+			business.editarExame(exameVo);
+		}catch(Exception e) {
+			return EDITAR;
+		}
 		
 		return REDIRECT;
 	}

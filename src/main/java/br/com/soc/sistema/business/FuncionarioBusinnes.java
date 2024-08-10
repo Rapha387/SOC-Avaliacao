@@ -18,7 +18,12 @@ public class FuncionarioBusinnes {
 	}
 
 	public List<FuncionarioVo> TrazerTodosOsFuncionarios() {
-		return dao.findAllFuncionarios();
+		try {
+			return dao.findAllFuncionarios();
+		}catch(Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
+		
 	}
 
 	public FuncionarioVo buscarFuncionarioPorId(String rowid) {
@@ -27,6 +32,8 @@ public class FuncionarioBusinnes {
 			return dao.findById(codigo);
 		}catch(NumberFormatException e) {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
+		}catch(Exception e) {
+			throw new BusinessException(e.getMessage());
 		}
 	}
 
@@ -76,7 +83,7 @@ public class FuncionarioBusinnes {
 				}catch (NumberFormatException e) {
 					throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 				}catch(Exception e){
-					throw new Exception(e.getMessage()); 
+					throw new BusinessException(e.getMessage()); 
 				}
 			break;
 

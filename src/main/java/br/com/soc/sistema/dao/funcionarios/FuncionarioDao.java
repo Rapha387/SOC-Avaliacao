@@ -17,7 +17,7 @@ public class FuncionarioDao extends Dao{
 
 	private ExameRealizadoDao exameRealizadoDao = new ExameRealizadoDao();
 	
-	public List<FuncionarioVo> findAllFuncionarios() {
+	public List<FuncionarioVo> findAllFuncionarios() throws SQLException {
 		List<FuncionarioVo> funcionarios = new ArrayList<>();
 		StringBuilder querry = new StringBuilder("Select rowid, nm_funcionario from funcionario"); 
 		
@@ -32,13 +32,13 @@ public class FuncionarioDao extends Dao{
 				funcionarios.add(funcionarioVo);
 			}
 		}catch(SQLException e){
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 		
 		return funcionarios;
 	}
 
-	public FuncionarioVo findById(Integer codigo) {
+	public FuncionarioVo findById(Integer codigo) throws SQLException {
 		FuncionarioVo funcionarioVo = new FuncionarioVo();
 		StringBuilder querry = new StringBuilder("Select rowid, nm_funcionario from funcionario ")
 											.append("where rowid = ?"); 
@@ -55,13 +55,13 @@ public class FuncionarioDao extends Dao{
 				}
 			}
 		}catch(SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 		
 		return funcionarioVo;
 	}
 
-	public void updateFuncionario(FuncionarioVo funcionarioVo) {
+	public void updateFuncionario(FuncionarioVo funcionarioVo) throws SQLException {
 		StringBuilder query = new StringBuilder("update funcionario set nm_funcionario = ? ")
 										.append("where rowid = ?");
 		try(Connection con = getConexao();
@@ -70,26 +70,26 @@ public class FuncionarioDao extends Dao{
 			ps.setString(2, funcionarioVo.getRowid());
 			ps.executeUpdate();
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 	}
 
-	public void deleteFuncionario(Integer codigo) {
-		exameRealizadoDao.deleteAllByIdFuncionario(codigo);
-		
-		StringBuilder query = new StringBuilder("delete from funcionario where rowid = ?");
-		
-		try (Connection con = getConexao();
-				PreparedStatement  ps = con.prepareStatement(query.toString())){
-			ps.setInt(1, codigo);
-			ps.executeUpdate();
+	public void deleteFuncionario(Integer codigo) throws SQLException {
+		try {
+			exameRealizadoDao.deleteAllByIdFuncionario(codigo);
+			StringBuilder query = new StringBuilder("delete from funcionario where rowid = ?");
 			
+			try (Connection con = getConexao();
+					PreparedStatement  ps = con.prepareStatement(query.toString())){
+				ps.setInt(1, codigo);
+				ps.executeUpdate();
+			}
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 	}
 
-	public void insertFuncionario(FuncionarioVo funcionarioVo) {
+	public void insertFuncionario(FuncionarioVo funcionarioVo) throws SQLException {
 		StringBuilder query = new StringBuilder("insert into funcionario (nm_funcionario) values (?)");
 		
 		try(Connection con = getConexao();
@@ -97,11 +97,11 @@ public class FuncionarioDao extends Dao{
 			ps.setString(1, funcionarioVo.getNome());
 			ps.executeUpdate();
 		}catch(SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 	}
 
-	public FuncionarioVo findByCodigo(Integer codigo) {
+	public FuncionarioVo findByCodigo(Integer codigo) throws SQLException {
 		StringBuilder query = new StringBuilder("select rowid, nm_funcionario nome from funcionario ")
 				.append("WHERE rowid = ?");
 		
@@ -118,7 +118,7 @@ public class FuncionarioDao extends Dao{
 				}
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}		
 		return funcionario;
 	}

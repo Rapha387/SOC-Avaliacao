@@ -17,8 +17,12 @@ public class ExameBusiness {
 		this.dao = new ExameDao();
 	}
 	
-	public List<ExameVo> trazerTodosOsExames(){
-		return dao.findAllExames();
+	public List<ExameVo> trazerTodosOsExames() {
+		try {
+			return dao.findAllExames();
+		}catch(Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}	
 	
 	public void salvarExame(ExameVo exameVo) {
@@ -43,11 +47,18 @@ public class ExameBusiness {
 					exames.add(dao.findByCodigo(codigo));
 				}catch (NumberFormatException e) {
 					throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
+				}catch(Exception e) {
+					throw new BusinessException(e.getMessage());
 				}
 			break;
 
 			case NOME:
-				exames.addAll(dao.findAllByNome(filter.getValorBusca()));
+				try {
+					exames.addAll(dao.findAllByNome(filter.getValorBusca()));
+				}catch(Exception e) {
+					throw new BusinessException(e.getMessage());
+				}
+				
 			break;
 		}
 		
@@ -60,6 +71,8 @@ public class ExameBusiness {
 			return dao.findByCodigo(cod);
 		}catch (NumberFormatException e) {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
+		}catch(Exception e) {
+			throw new BusinessException(e.getMessage());
 		}
 	}
 	
@@ -81,9 +94,10 @@ public class ExameBusiness {
 				throw new IllegalArgumentException("Id nao pode ser em branco");
 			}
 			dao.deleteExame(Integer.parseInt(exameVo.getRowid()));
+		}catch (NumberFormatException e) {
+			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 		}catch(Exception e) {
 			throw new BusinessException(e.getMessage());
 		}
-		
 	}
 }

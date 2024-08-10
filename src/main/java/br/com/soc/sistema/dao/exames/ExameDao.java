@@ -13,7 +13,7 @@ import br.com.soc.sistema.vo.ExameVo;
 
 public class ExameDao extends Dao {
 	
-	public void insertExame(ExameVo exameVo){
+	public void insertExame(ExameVo exameVo) throws SQLException{
 		StringBuilder query = new StringBuilder("INSERT INTO exame (nm_exame) values (?)");
 		try(
 			Connection con = getConexao();
@@ -23,11 +23,11 @@ public class ExameDao extends Dao {
 			ps.setString(i++, exameVo.getNome());
 			ps.executeUpdate();
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 	}
 	
-	public void updateExame(ExameVo exameVo){
+	public void updateExame(ExameVo exameVo) throws SQLException{
 		StringBuilder query = new StringBuilder("update exame set nm_exame = ? ")
 										.append("where rowid = ?");
 		try(
@@ -38,11 +38,11 @@ public class ExameDao extends Dao {
 			ps.executeUpdate();
 			
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 	}
 	
-	public void deleteExame(Integer codigo) { 
+	public void deleteExame(Integer codigo) throws SQLException { 
 		StringBuilder query = new StringBuilder("delete from exame where rowid = ?");
 		
 		try (Connection con = getConexao();
@@ -51,19 +51,20 @@ public class ExameDao extends Dao {
 			ps.executeUpdate();
 			
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 	}
 	
-	public List<ExameVo> findAllExames(){
+	public List<ExameVo> findAllExames() throws SQLException{
 		StringBuilder query = new StringBuilder("SELECT rowid id, nm_exame nome FROM exame");
+		List<ExameVo> exames = new ArrayList<>();
 		try(
 			Connection con = getConexao();
 			PreparedStatement  ps = con.prepareStatement(query.toString());
 			ResultSet rs = ps.executeQuery()){
 			
 			ExameVo vo =  null;
-			List<ExameVo> exames = new ArrayList<>();
+			
 			while (rs.next()) {
 				vo = new ExameVo();
 				vo.setRowid(rs.getString("id"));
@@ -71,17 +72,18 @@ public class ExameDao extends Dao {
 				
 				exames.add(vo);
 			}
-			return exames;
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 		
-		return Collections.emptyList();
+		return exames;
 	}
 	
-	public List<ExameVo> findAllByNome(String nome){
+	public List<ExameVo> findAllByNome(String nome) throws Exception{
 		StringBuilder query = new StringBuilder("SELECT rowid id, nm_exame nome FROM exame ")
 								.append("WHERE lower(nm_exame) like lower(?)");
+		
+		List<ExameVo> exames = new ArrayList<>();
 		
 		try(Connection con = getConexao();
 			PreparedStatement ps = con.prepareStatement(query.toString())){
@@ -91,7 +93,6 @@ public class ExameDao extends Dao {
 			
 			try(ResultSet rs = ps.executeQuery()){
 				ExameVo vo =  null;
-				List<ExameVo> exames = new ArrayList<>();
 				
 				while (rs.next()) {
 					vo = new ExameVo();
@@ -100,18 +101,18 @@ public class ExameDao extends Dao {
 					
 					exames.add(vo);
 				}
-				return exames;
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}		
-		return Collections.emptyList();
+		return exames;
 	}
 	
-	public ExameVo findByCodigo(Integer codigo){
+	public ExameVo findByCodigo(Integer codigo) throws SQLException{
 		StringBuilder query = new StringBuilder("SELECT rowid id, nm_exame nome FROM exame ")
 								.append("WHERE rowid = ?");
 		
+		ExameVo vo =  new ExameVo();
 		try(Connection con = getConexao();
 			PreparedStatement ps = con.prepareStatement(query.toString())){
 			int i = 1;
@@ -119,18 +120,14 @@ public class ExameDao extends Dao {
 			ps.setInt(i, codigo);
 			
 			try(ResultSet rs = ps.executeQuery()){
-				ExameVo vo =  null;
-				
 				while (rs.next()) {
-					vo = new ExameVo();
 					vo.setRowid(rs.getString("id"));
 					vo.setNome(rs.getString("nome"));	
 				}
-				return vo;
 			}
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}		
-		return null;
+		return vo;
 	}
 }

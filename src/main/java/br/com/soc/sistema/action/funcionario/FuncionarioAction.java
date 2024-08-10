@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import br.com.soc.sistema.business.FuncionarioBusinnes;
+import br.com.soc.sistema.exception.BusinessException;
 import br.com.soc.sistema.filter.FuncionarioFilter;
 import br.com.soc.sistema.infra.Action;
 import br.com.soc.sistema.infra.OpcoesComboBuscarFuncionarios;
@@ -22,18 +23,26 @@ public class FuncionarioAction extends Action{
 		if(funcionarioVo.getNome() == null)
 			return INPUT;
 		
-		business.salvarFuncionario(funcionarioVo);
+		try {
+			business.salvarFuncionario(funcionarioVo);
+		}catch(Exception e) {
+			return INPUT;
+		}
 		
 		return REDIRECT;
 	}
 	
 	public String todos() {
-		funcionarios.addAll(business.TrazerTodosOsFuncionarios());
-		
+		try {
+			funcionarios.addAll(business.TrazerTodosOsFuncionarios());
+		}catch(Exception e) {
+			return ERROR;
+		}
+	
 		return SUCCESS;
 	}
 	
-	public String filtrar() throws Exception {
+	public String filtrar() {
 		if(filtrar.isNullOpcoesCombo() || filtrar.getValorBusca().isEmpty()) {
 			return REDIRECT;
 		}
@@ -61,8 +70,11 @@ public class FuncionarioAction extends Action{
 	}
 	
 	public String salvarEdicao() {
-		business.editarFuncionario(funcionarioVo);
-		
+		try {
+			business.editarFuncionario(funcionarioVo);
+		}catch(Exception e) {
+			return EDITAR;
+		}
 		return REDIRECT;
 	}
 	
@@ -74,7 +86,7 @@ public class FuncionarioAction extends Action{
 		try {
 			business.excluirFuncionario(funcionarioVo.getRowid());
 		}catch(Exception e) {
-			return ERROR;
+			return REDIRECT;
 		}
 		
 		return REDIRECT;

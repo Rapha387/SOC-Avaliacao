@@ -17,7 +17,11 @@ public class ExameRealizadoBusiness {
 	}
 	
 	public List<ExameRealizadoVo> trazerTodosOsExamesRealizados() {
-		return dao.findAll();
+		try {
+			return dao.findAll();
+		}catch(Exception e) {
+			throw new BusinessException(e.getMessage());
+		}
 	}
 
 	public void salvarExameRealizado(ExameRealizadoVo exameRealizadoVo) {
@@ -30,7 +34,9 @@ public class ExameRealizadoBusiness {
 			dao.insertExameRealizado(codigoExame, codigoFuncionario, dataExame);
 		}catch(NumberFormatException e) {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
-		}	
+		}catch(Exception e) {
+			throw new BusinessException("Não foi possível realizar o cadastro. Verifique se este casdatro já existe");
+		}
 	}
 
 	public void excluirExameRealizado(ExameRealizadoVo exameRealizado) {
@@ -42,12 +48,14 @@ public class ExameRealizadoBusiness {
 			dao.deleteExameRealizado(codigoExame, codigoFuncionario, dataExame);
 		}catch(NumberFormatException e) {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
+		}catch(Exception e) {
+			throw new BusinessException(e.getMessage());
 		}
 		
 	}
 
 	public List<ExameRealizadoVo> filtrarExamesRealizadosPorDatas(String valorBuscaDataInicio, String valorBuscaDataFim) {
-		try {
+		try {	
 			return dao.findByDates(valorBuscaDataInicio, valorBuscaDataFim);
 		}catch(Exception e) {
 			throw new BusinessException(e.getMessage());

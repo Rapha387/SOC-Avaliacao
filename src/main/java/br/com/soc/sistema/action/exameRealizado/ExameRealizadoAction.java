@@ -24,13 +24,22 @@ public class ExameRealizadoAction extends Action{
 	
 	
 	public String filtrar() {
-		this.examesRealizados = business.filtrarExamesRealizadosPorDatas(valorBuscaDataInicio, valorBuscaDataFim);
+		try {
+			this.examesRealizados = business.filtrarExamesRealizadosPorDatas(valorBuscaDataInicio, valorBuscaDataFim);
+		}catch(Exception e) {
+			return REDIRECT;
+		}
 		
 		return SUCCESS;
 	}
 	
 	public String todos() {
-		this.examesRealizados.addAll(business.trazerTodosOsExamesRealizados());
+		
+		try {
+			this.examesRealizados.addAll(business.trazerTodosOsExamesRealizados());
+		}catch(Exception e) {
+			return ERROR;
+		}
 		
 		return SUCCESS;
 	}
@@ -40,23 +49,36 @@ public class ExameRealizadoAction extends Action{
 			return INPUT;
 		}
 		
-		business.salvarExameRealizado(exameRealizadoVo);
+		try {
+			business.salvarExameRealizado(exameRealizadoVo);
+		}catch(Exception e) {
+			return INPUT;
+		}
 		
 		return REDIRECT;
 	}
 	
 	
 	public String excluir() {
-		business.excluirExameRealizado(exameRealizadoVo);
+		
+		try {
+			business.excluirExameRealizado(exameRealizadoVo);
+		}catch(Exception e) {
+			return REDIRECT;
+		}
 		
 		return REDIRECT;
 	}
 	
 
 	public String baixarRelatorio(){
-		this.examesRealizados = business.filtrarExamesRealizadosPorDatas(valorBuscaDataInicio, valorBuscaDataFim);
-	
-		baixarRelatorioExcel.baixar(examesRealizados);			
+		
+		try {
+			this.examesRealizados = business.filtrarExamesRealizadosPorDatas(valorBuscaDataInicio, valorBuscaDataFim);
+			baixarRelatorioExcel.baixar(examesRealizados);
+		}catch(Exception e) {
+			return SUCCESS; 
+		}
 		
 		return SUCCESS;
 	}

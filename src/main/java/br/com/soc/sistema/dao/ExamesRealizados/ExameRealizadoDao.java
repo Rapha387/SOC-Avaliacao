@@ -18,7 +18,7 @@ import freemarker.template.utility.DateUtil.DateParseException;
 
 public class ExameRealizadoDao extends Dao{
 
-	public List<ExameRealizadoVo> findAll() {
+	public List<ExameRealizadoVo> findAll() throws Exception {
 		List<ExameRealizadoVo> examesRealizados = new ArrayList<>();
 		SimpleDateFormat formatoBrasileiro = new SimpleDateFormat("dd/MM/yyyy");
 		 
@@ -41,13 +41,13 @@ public class ExameRealizadoDao extends Dao{
 				examesRealizados.add(exameRealizadoVo);
 			}
 		}catch(SQLException | ParseException e) {
-			e.printStackTrace();
+			throw new Exception(e.getMessage());
 		}
 		
 		return examesRealizados;
 	}
 
-	public void insertExameRealizado(Integer codigoExame, Integer codigoFuncionario, String dataExame) {
+	public void insertExameRealizado(Integer codigoExame, Integer codigoFuncionario, String dataExame) throws SQLException {
 		StringBuilder query = new StringBuilder("INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (?, ?, ?)");
 		try(
 			Connection con = getConexao();
@@ -58,12 +58,12 @@ public class ExameRealizadoDao extends Dao{
 			ps.setString(3, dataExame);
 			ps.executeUpdate();
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 	}
 
 
-	public void deleteExameRealizado(Integer codigoExame, Integer codigoFuncionario, String dataExame) {
+	public void deleteExameRealizado(Integer codigoExame, Integer codigoFuncionario, String dataExame) throws SQLException {
 		StringBuilder query = new StringBuilder("delete from exame_funcionario where rowid_funcionario = ?")
 											.append(" and rowid_exame = ? and dt_exame = ?");
 		try(
@@ -75,11 +75,11 @@ public class ExameRealizadoDao extends Dao{
 			ps.setString(3, dataExame);
 			ps.executeUpdate();
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 	}
 	
-	public void deleteAllByIdFuncionario(Integer codigoFuncionario) {
+	public void deleteAllByIdFuncionario(Integer codigoFuncionario) throws SQLException {
 		StringBuilder query = new StringBuilder("delete from exame_funcionario where rowid_funcionario = ?");
 		try(	
 			Connection con = getConexao();
@@ -88,7 +88,7 @@ public class ExameRealizadoDao extends Dao{
 			ps.setInt(1, codigoFuncionario);
 			ps.executeUpdate();
 		}catch (SQLException e) {
-			e.printStackTrace();
+			throw new SQLException(e.getMessage());
 		}
 	}
 
@@ -135,5 +135,4 @@ public class ExameRealizadoDao extends Dao{
 			
 			return examesRealizados;
 	}
-	
 }
