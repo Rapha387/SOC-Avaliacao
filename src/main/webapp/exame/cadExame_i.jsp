@@ -47,6 +47,7 @@
 							</div>	
 							<span id="erroNome" class="col-sm-5 text-danger"></span>	
 						</div>
+						<span id="erroBanco" class="col-sm-5 text-danger"><s:property value="mensagemErro"/></span>	
 					</div>
 
 					<div class="card-footer">

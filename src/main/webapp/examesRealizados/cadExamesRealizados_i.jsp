@@ -4,7 +4,7 @@
 <html>
 <head>
 	<meta charset="ISO-8859-1">
-	<title>Insert title here</title>
+	<title>Cadastro Exames Realizados</title>
 	<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 </head>
 <body class="bg-secondary">
@@ -60,9 +60,10 @@
 							
 							<span id="erroData" class="col-sm-5 text-danger"></span>	
 						</div>
+						<span id="erroBanco" class="col-sm-5 text-danger"><s:property value="mensagemErro"/></span>	
 					</div>
 
-					<div class="card-footer">
+					<div class="card-footer">					
 						<div class="form-row">
 							<button class="btn btn-primary col-sm-4 offset-sm-1">Salvar</button>
 							<button type="reset" class="btn btn-secondary col-sm-4 offset-sm-2">Limpar Formulario</button>

@@ -21,3 +21,8 @@ INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values 
 INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (1, 2, '2024-03-12');
 INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (2, 2, '2024-07-04');
 INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (1, 1, '2024-06-08');
+INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (3, 4, '2024-06-20');
+INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (4, 3, '2024-02-25');
+INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (3, 2, '2024-12-04');
+INSERT INTO exame_funcionario (rowid_funcionario, rowid_exame, dt_exame) values (4, 3, '2024-03-14');
+

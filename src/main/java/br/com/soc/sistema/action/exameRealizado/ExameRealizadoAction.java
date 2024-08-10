@@ -22,6 +22,7 @@ public class ExameRealizadoAction extends Action{
 	private String valorBuscaDataInicio;
 	private String valorBuscaDataFim;
 	
+	private String mensagemErro = "";
 	
 	public String filtrar() {
 		try {
@@ -52,6 +53,7 @@ public class ExameRealizadoAction extends Action{
 		try {
 			business.salvarExameRealizado(exameRealizadoVo);
 		}catch(Exception e) {
+			mensagemErro = e.getMessage();
 			return INPUT;
 		}
 		
@@ -75,8 +77,16 @@ public class ExameRealizadoAction extends Action{
 		
 		try {
 			this.examesRealizados = business.filtrarExamesRealizadosPorDatas(valorBuscaDataInicio, valorBuscaDataFim);
+			if(this.examesRealizados.isEmpty()) {
+				mensagemErro = "Nenhum registro encontrado para efetuar o dowload";
+				return SUCCESS;
+			}
+				
 			baixarRelatorioExcel.baixar(examesRealizados);
+			mensagemErro = "Dowload efetuado com sucesso";
+				
 		}catch(Exception e) {
+			mensagemErro = "Não foi possível baixar o relatório";
 			return SUCCESS; 
 		}
 		
@@ -132,6 +142,14 @@ public class ExameRealizadoAction extends Action{
 
 	public void setValorBuscaDataFim(String valorBuscaDataFim) {
 		this.valorBuscaDataFim = valorBuscaDataFim;
+	}
+
+	public String getMensagemErro() {
+		return mensagemErro;
+	}
+
+	public void setMensagemErro(String mensagemErro) {
+		this.mensagemErro = mensagemErro;
 	}	
 	
 }

@@ -77,14 +77,11 @@
 								<a href="${novo}" class="btn btn-success">
 									<s:text name="label.novo"/>
 								</a>
+								<span id="erroBanco" class="col-sm-5 text-danger"><s:property value="mensagemErro"/></span>	
 							</td>
 						</tr>
 					</tfoot>				
 				</table>
-			</div>
-
-			<div class="row">
-			
 			</div>
 		</div>
 		
@@ -121,15 +118,6 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-		
-		<script>
-			const btnConfirmaExclusao = document.querySelector('.btnConfirmaExclusao');	
-			const href = btnConfirmaExclusao.getAttribute('href');
-		
-			function pegarIdBotao(e){
-				btnConfirmaExclusao.setAttribute('href', href + e.getAttribute('id'));
-			}
-		</script>
-		
+		<script type="text/javascript" src="js/popupExcluir/exame.js"></script>
 	</body>
 </html>

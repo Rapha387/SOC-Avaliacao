@@ -4,7 +4,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title><s:text name="label.titulo.pagina.consulta"/></title>
+	<meta charset="ISO-8859-1">
+	<title>Exames Realizados</title>
 	<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 </head>
 <body class="bg-secondary">	
@@ -42,7 +43,9 @@
 				<table class="table table-light table-striped align-middle">
 					<thead>
 						<tr>
+							<th>ID FUNCIONÁRIO</th>
 							<th>FUNCIONÁRIO</th>
+							<th>ID EXAME</th>
 							<th>EXAME</th>
 							<th>DATA EXAME</th>
 							<th class="text-end mt-5"><s:text name="label.acao"/></th>
@@ -52,7 +55,9 @@
 					<tbody>
 						<s:iterator value="examesRealizados">
 							<tr>
+								<td>${funcionarioVo.rowid}</td>
 								<td>${funcionarioVo.nome}</td>
+								<td>${exameVo.rowid}</td>
 								<td>${exameVo.nome}</td>
 								<td><fmt:formatDate value="${dataExame}" type="date" pattern="dd/MM/yyyy"/></td>
 								<td class="text-end">
@@ -75,7 +80,7 @@
 					
 					<tfoot class="table-secondary">
 						<tr>
-							<td colspan="4">
+							<td colspan="6">
 								<s:url action="novoExamesRealizados" var="novo" />
 									
 								<a href="${novo}" class="btn btn-success">
@@ -91,6 +96,8 @@
 								<a href="${baixarRelatorio}" class="btn btn-success">
 									BAIXAR RELATÓRIO
 								</a>
+								
+								<span id="erroBanco" class="col-sm-5"><s:property value="mensagemErro"/></span>
 							</td>
 						</tr>
 					</tfoot>				
@@ -135,15 +142,6 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-		
-		<script>
-			const btnConfirmaExclusao = document.querySelector('.btnConfirmaExclusao');	
-			const href = btnConfirmaExclusao.getAttribute('href');
-		
-			function pegarIdBotao(e){
-				btnConfirmaExclusao.setAttribute('href', e.getAttribute('id'));
-			}
-		</script>
-		
+		<script type="text/javascript" src="js/popupExcluir/exameRealizado.js"></script>
 	</body>
 </html>

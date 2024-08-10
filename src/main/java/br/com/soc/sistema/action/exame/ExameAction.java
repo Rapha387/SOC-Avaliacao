@@ -15,6 +15,7 @@ public class ExameAction extends Action {
 	private ExameBusiness business = new ExameBusiness();
 	private ExameFilter filtrar = new ExameFilter();
 	private ExameVo exameVo = new ExameVo();
+	private String mensagemErro = "";
 	
 	public String todos() {
 		try {
@@ -45,9 +46,9 @@ public class ExameAction extends Action {
 		try {
 			business.salvarExame(exameVo);
 		}catch(Exception e) {
+			mensagemErro = e.getMessage();
 			return INPUT;
 		}
-		
 		
 		return REDIRECT;
 	}
@@ -73,6 +74,7 @@ public class ExameAction extends Action {
 		try {
 			business.editarExame(exameVo);
 		}catch(Exception e) {
+			mensagemErro = e.getMessage();
 			return EDITAR;
 		}
 		
@@ -87,7 +89,8 @@ public class ExameAction extends Action {
 		try {
 			business.excluirExame(exameVo);
 		}catch(Exception e) {
-			return ERROR;
+			mensagemErro = e.getMessage();
+			return todos();
 		}
 		
 		return REDIRECT;
@@ -120,5 +123,13 @@ public class ExameAction extends Action {
 
 	public void setExameVo(ExameVo exameVo) {
 		this.exameVo = exameVo;
+	}
+
+	public String getMensagemErro() {
+		return mensagemErro;
+	}
+
+	public void setMensagemErro(String mensagemErro) {
+		this.mensagemErro = mensagemErro;
 	}
 }

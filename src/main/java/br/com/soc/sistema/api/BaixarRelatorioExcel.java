@@ -44,20 +44,13 @@ public class BaixarRelatorioExcel {
             sheet.autoSizeColumn(i);
         }
 		
-        try (FileOutputStream fileOut = new FileOutputStream(new File("C:/teste/novo.xls"))) {
+        try (FileOutputStream fileOut = new FileOutputStream(new File("relatorio.xls"))) {
             workbook.write(fileOut);
+            workbook.close();
         }catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
         	e.printStackTrace();
         }
-
-        try {
-            workbook.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-		
 	}
-	
 }

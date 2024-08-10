@@ -4,7 +4,7 @@
 <html>
 	<head>
 		<meta charset="ISO-8859-1">
-		<title><s:text name="label.titulo.pagina.consulta"/></title>
+		<title>Funcionários Cadastrados</title>
 		<link rel='stylesheet' href='webjars/bootstrap/5.1.3/css/bootstrap.min.css'>
 	</head>
 	<body class="bg-secondary">	
@@ -120,15 +120,6 @@
 		</div>
 		
 		<script src="webjars/bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-		
-		<script>
-			const btnConfirmaExclusao = document.querySelector('.btnConfirmaExclusao');	
-			const href = btnConfirmaExclusao.getAttribute('href');
-		
-			function pegarIdBotao(e){
-				btnConfirmaExclusao.setAttribute('href', href + e.getAttribute('id'));
-			}
-		</script>
-		
+		<script type="text/javascript" src="js/popupExcluir/funcionario.js"></script>
 	</body>
 </html>

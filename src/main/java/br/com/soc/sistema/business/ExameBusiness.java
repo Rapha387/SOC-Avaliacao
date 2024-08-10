@@ -97,7 +97,7 @@ public class ExameBusiness {
 		}catch (NumberFormatException e) {
 			throw new BusinessException(FOI_INFORMADO_CARACTER_NO_LUGAR_DE_UM_NUMERO);
 		}catch(Exception e) {
-			throw new BusinessException(e.getMessage());
+			throw new BusinessException("Não foi possível exlcuir o exame. Verifique se ele já foi realizado por algum funcionário");
 		}
 	}
 }

@@ -23,6 +23,7 @@ function verificarInputsExameRealizado(){
 }
 
 function limpar(){
+	erroBanco.textContent = "";
 	erroIdFuncionario.textContent = "";
 	erroIdExame.textContent = "";
 	erroData.textContent = "";

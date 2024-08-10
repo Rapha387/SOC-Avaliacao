@@ -53,6 +53,7 @@
 								<s:textfield type="date" cssClass="form-control" id="nome" name="exameRealizadoVo.dataExame"/>							
 							</div>	
 						</div>
+						
 					</div>
 
 					<div class="card-footer">

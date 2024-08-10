@@ -12,12 +12,11 @@ import br.com.soc.sistema.infra.OpcoesComboBuscarFuncionarios;
 import br.com.soc.sistema.vo.FuncionarioVo;
 
 public class FuncionarioAction extends Action{
-	
 	private FuncionarioBusinnes business = new FuncionarioBusinnes();
-	
 	private List<FuncionarioVo> funcionarios = new ArrayList<>();
 	private FuncionarioVo funcionarioVo = new FuncionarioVo();
 	private FuncionarioFilter filtrar = new FuncionarioFilter();
+	private String mensagemErro = "";
 	
 	public String novo() {
 		if(funcionarioVo.getNome() == null)
@@ -36,6 +35,7 @@ public class FuncionarioAction extends Action{
 		try {
 			funcionarios.addAll(business.TrazerTodosOsFuncionarios());
 		}catch(Exception e) {
+			mensagemErro = e.getMessage();
 			return ERROR;
 		}
 	
@@ -63,6 +63,7 @@ public class FuncionarioAction extends Action{
 		try {
 			funcionarioVo = business.buscarFuncionarioPorId(funcionarioVo.getRowid());			
 		}catch(Exception e) {
+			mensagemErro = e.getMessage();
 			return ERROR;
 		}
 		
@@ -118,5 +119,13 @@ public class FuncionarioAction extends Action{
 
 	public void setFuncionarios(List<FuncionarioVo> funcionarios) {
 		this.funcionarios = funcionarios;
+	}
+
+	public String getMensagemErro() {
+		return mensagemErro;
+	}
+
+	public void setMensagemErro(String mensagemErro) {
+		this.mensagemErro = mensagemErro;
 	}
 }
