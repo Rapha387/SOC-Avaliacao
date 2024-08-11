@@ -100,6 +100,7 @@
 		      
 		      <div class="modal-body">
 		      	<span><s:text name="label.modal.corpo"/></span>
+		      	<p>Essa ação irá exlcuir todos os exames realizados associados a ela</p>
 		      </div>
 		      
 		      <div class="modal-footer">

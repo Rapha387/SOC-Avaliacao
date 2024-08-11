@@ -86,7 +86,7 @@ public class ExameRealizadoAction extends Action{
 			mensagemErro = "Dowload efetuado com sucesso";
 				
 		}catch(Exception e) {
-			mensagemErro = "Não foi possível baixar o relatório";
+			mensagemErro = e.getMessage();
 			return SUCCESS; 
 		}
 		
