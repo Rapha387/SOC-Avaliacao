@@ -1,16 +1,14 @@
 package br.com.soc.sistema.api;
 
 import java.io.File;
-import java.io.FileNotFoundException;
+
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.List;
 
-import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.*;
 
 import br.com.soc.sistema.vo.ExameRealizadoVo;
 
@@ -19,11 +17,30 @@ public class BaixarRelatorioExcel {
 	public void baixar(List<ExameRealizadoVo> examesRealizados) throws Exception {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 
-		HSSFSheet sheet = workbook.createSheet("relatorioExamesRealizados");
+		Sheet sheet = workbook.createSheet("relatorioExamesRealizados");
 
-		int rownum = 0;
-		
 		try {
+			String[] headers = {"ID Funcionário", "Nome Funcionário", "ID Exame", "Nome Exame", "Data Exame"};
+			
+			Row headerRow = sheet.createRow(0);
+			for(int i = 0; i < headers.length; i++) {
+				Cell cell = headerRow.createCell(i);
+	            cell.setCellValue(headers[i]);
+	            
+	            CellStyle headerStyle = workbook.createCellStyle();
+	            
+	            headerStyle.setFillForegroundColor(IndexedColors.LIGHT_BLUE.getIndex());
+	            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+	            
+	            Font font = workbook.createFont();
+	            font.setBold(true);
+	            font.setColor(IndexedColors.WHITE.getIndex());
+	            headerStyle.setFont(font);
+	            cell.setCellStyle(headerStyle);
+			}
+			
+			int rownum = 1;
+			
 			for(ExameRealizadoVo exame : examesRealizados) {
 				Row row = sheet.createRow(rownum++);
 				int cellnum = 0;
